@@ -356,3 +356,22 @@ if __name__ == '__main__':
 </html>
 ```
 
+# Test  example
+
+## Python
+
+![image-20240328231654847](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328231654847.png)
+
+![image-20240328231808426](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328231808426.png)
+
+## C++
+
+![image-20240328232315304](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328232315304.png)
+
+![image-20240328232436462](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328232436462.png)
+
+## HTML
+
+![image-20240328232557012](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328232557012.png)
+
+![image-20240328232646736](C:\Users\Malloc\AppData\Roaming\Typora\typora-user-images\image-20240328232646736.png)

@@ -8,7 +8,7 @@ def main():
     """
     print('依次输入信源、新宿符号个数（回车隔开）')
     r = int(input())  # 信源符号个数
-    s = int(input())  # 新宿符号个数
+    s = int(input())  # 新宿符号个数A
     p_x = np.full(r, 1.0 / r, dtype=float)  # 初始化信源分布
     p_yx = np.zeros((r, s), dtype=float)  # 初始化信道转移概率矩阵
     print('依次信道转移概率矩阵元素（从左到右、自上而下，回车隔开）')

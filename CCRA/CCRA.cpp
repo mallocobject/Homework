@@ -21,12 +21,6 @@ int main()
     int s; // 信宿符号个数
     std::cout << "依次输入信源、新宿符号个数（可用空格、回车隔开）" << std::endl;
     std::cin >> r >> s;
-    // test 1
-    // r = 4;
-    // s = 4
-    // test 2
-    // r = 2;
-    // s = 3;
     std::vector<double> p_x(r, 1.0 / r);                              // 信源分布
     std::vector<std::vector<double>> p_yx(r, std::vector<double>(s)); // 信道转移概率矩阵
     std::cout << "依次信道转移概率矩阵元素（从左到右、自上而下，可用空格、回车隔开）" << std::endl;
@@ -37,14 +31,6 @@ int main()
             std::cin >> p_yx[i][j];
         }
     }
-    // test 1
-    // p_yx = {{0.5, 0.25, 0, 0.25},
-    //         {0, 1, 0, 0},
-    //         {0, 0, 1, 0},
-    //         {0.25, 0, 0.25, 0.5}};
-    // test 2
-    // p_yx = {{0.5, 0.3, 0.2},
-    //         {0.3, 0.5, 0.2}};
     double new_c = 0.0;                               // 用于接收迭代结果
     double c = std::numeric_limits<double>::lowest(); // 初始化为“负无穷”，用于保存上一次迭代结果
     // <--------------------------------6 : recure-------------------------------->
