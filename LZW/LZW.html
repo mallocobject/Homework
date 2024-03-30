@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LZW ENCODE</title>
+</head>
+
+<body>
+
+    <h2>Upload File</h2>
+    <input type="file" id="myFile" name="filename">
+    <button onclick="getFile()" style="display: block; margin-top: 10px;">Submit</button>
+
+    <textarea id="output" rows="10" cols="50" style="display: block; margin-top: 10px; width: 100%;"></textarea>
+    <span id="charCount">0</span> characters
+
+    <script>
+        function lzwEncode(filename, callback) {
+            const HEX = '0123456789ABCDEF';
+            // Set a consequent string for the fucntion to return
+            let res_string = "";
+            const ump = new Map();
+            for (let c = 0; c < 256; c++) {
+                ump.set(String.fromCharCode(c), c);
+            }
+
+            const reader = new FileReader();
+            // The function to be executed(called) when the file is read
+            reader.onload = function (e) {
+                // Get file content
+                const content = e.target.result;
+                // console.log(content);
+
+                // Read the first character from the input file
+                let current_char = content.charAt(0);
+                let key = current_char;
+                let value = 0xFF;
+                let index = 1;
+
+                // Continue reading characters from the input file until the end of the file is reached
+                while (index < content.length) {
+                    current_char = content.charAt(index);
+                    // console.log(current_char);
+                    // for html the '\n' will be regarded as '\n' and '\r'
+                    // so we need ignore '\r' to be consistent with c++ and python
+                    if (current_char == '\r') {
+                        index++;
+                        continue;
+                    }
+                    let temp = key;
+                    key += current_char;
+
+                    // If the current string of characters is not in the dictionary, add it
+                    if (!ump.has(key)) {
+                        let temp_value = ump.get(temp);
+                        // console.log(temp_value);
+                        value++;
+                        ump.set(key, value);
+
+                        // Write the encoded value to the return string
+                        res_string += (HEX[(temp_value >> 8) & 0xF] + HEX[(temp_value >> 4) & 0xF] + HEX[temp_value & 0xF]);
+                        // Reset the key to the current character
+                        key = current_char;
+                    }
+                    index++;
+                }
+
+                // Key is bound in the dictionary
+                if (key.length > 0 && key != '\r') {
+                    let temp_value = ump.get(key);
+                    res_string += (HEX[(temp_value >> 8) & 0xF] + HEX[(temp_value >> 4) & 0xF] + HEX[temp_value & 0xF]);
+                }
+                console.log(ump);
+                callback(res_string);
+            };
+            // The fucntion is execuate asynchronously
+            reader.readAsText(filename)
+        }
+
+        function getFile() {
+            // 获取文件输入元素
+            const input = document.getElementById('myFile');
+
+            // 获取用户选择的文件
+            const file = input.files[0];
+
+            // 创建信息字符串
+            const info = 'Filename: ' + file.name + '\n' +
+                'Size: ' + file.size + '\n' +
+                'Type: ' + file.type;
+
+            // 显示信息
+            alert(info);
+
+            lzwEncode(file, function (encoded) {
+                document.getElementById('output').value = encoded;
+                document.getElementById('charCount').textContent = encoded.length;
+            });
+        }
+    </script>
+
+</body>
+
+</html>

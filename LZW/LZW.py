@@ -35,6 +35,10 @@ def main():
 
                     # Reset the key to the current character
                     key = current_char
+            # Key must be in the dictionary
+            if len(key) > 0:
+                temp_value = ump[key]
+                outputFile.write(HEX[(temp_value >> 8) & 0xF] + HEX[(temp_value >> 4) & 0xF] + HEX[temp_value & 0xF])
 
     if len(sys.argv) == 1:
         filename_in = input("Enter the name of the input file (absolute path): ")
